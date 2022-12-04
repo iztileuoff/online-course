@@ -17,8 +17,8 @@ class CreateQuizzesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('attempt');
-            $table->string('duration');
+            $table->integer('attempt');
+            $table->timestamp('duration');
             $table->integer('min_score');
             $table->timestamps();
         });
