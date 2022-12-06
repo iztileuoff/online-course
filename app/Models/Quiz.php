@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Quiz extends Model
+class Quiz extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
         'title',
@@ -18,12 +20,8 @@ class Quiz extends Model
     ];
 
     protected $casts = [
+        'duration' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-    
-    public function media()
-    {
-        return $this->morphOne(Media::class, 'mediable');
-    }
 }

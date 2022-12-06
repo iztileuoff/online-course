@@ -20,4 +20,8 @@ class Lesson extends Model implements HasMedia
         'order',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

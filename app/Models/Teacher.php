@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Teacher extends Model
+class Teacher extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $fillable = [
         'user_id',
@@ -19,9 +21,4 @@ class Teacher extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-    
-    public function media()
-    {
-        return $this->morphOne(Media::class, 'mediable');
-    }
 }
