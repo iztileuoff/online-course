@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('phone')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
 
         \Illuminate\Support\Facades\DB::table('users')->insert([
             'name' => 'Bektemir',
-            'email' => 'bektemir0714@gmail.com',
+            'phone' => '+998999560918',
             'password' => \Illuminate\Support\Facades\Hash::make('minda123')
         ]);
     }
