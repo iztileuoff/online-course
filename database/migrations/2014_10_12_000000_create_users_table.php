@@ -21,12 +21,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-        \Illuminate\Support\Facades\DB::table('users')->insert([
-            'name' => 'Bektemir',
-            'phone' => '+998999560918',
-            'password' => \Illuminate\Support\Facades\Hash::make('minda123')
-        ]);
     }
 
     /**
