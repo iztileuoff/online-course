@@ -1,51 +1,44 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\AUTH;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class AuthController extends Controller
+class AuthAPIController extends Controller
 {
-    public function register(RegisterRequest $request)
+    public function registration(RegisterRequest $request)
     {
         $data = $request->validated();
-
         $data['password'] = Hash::make($data['password']);
+        User::create($data);
 
-        $user = User::create($data);
-
-        $token = $user->createToken($request->email)->plainTextToken;
-        
         return response([
-            'message' => "succesful registred",
-            'data' => [
-                'token' => $token,
-                'user_id' => $user->id
-            ]
+            'message' => "succesful registred"
         ]);
     }
 
-    public function login(LoginRequest $request){
-
+    public function authenticate(LoginRequest $request)
+    {
         $request->validated();
 
-        $user = User::where('email', $request->input('email'))->first();
+        $user = User::where('phone', $request->input('phone'))->first();
 
         $pass = Hash::check($request->input('password'), $user->password);
-        if(!$pass){
+        if (!$pass) {
             throw ValidationException::withMessages([
                 'errors' => ['phone or password was invalid!']
             ]);
         }
-        
-        Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]);
-        $token = $user->createToken($user->email)->plainTextToken;
+
+        Auth::attempt(['phone' => $request->input('phone'), 'password' => $request->input('password')]);
+        $token = $user->createToken($user->phone)->plainTextToken;
         return response([
             'message' => "successful login",
             'data' => [
