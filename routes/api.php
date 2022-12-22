@@ -15,12 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::post('/register', [AuthController::class, 'register'])->name('register');
-//Route::post('/login', [AuthController::class, 'login'])->name('login');
 
     Route::prefix('auth')->group(function (){
         Route::post('/register', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'registration']);
-        Route::post('/login', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'authenticate']);
+        Route::get('/login', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'authenticate']);
 
     });
 
