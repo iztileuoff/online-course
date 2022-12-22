@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\AUTH;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\LoginRequest;
+use App\Http\Requests\API\AUTH\LogOutRequest;
 use App\Http\Requests\Api\Auth\RegistrationRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
@@ -40,4 +41,9 @@ class AuthApiController extends Controller
         return response()->json(['message' => 'User has been created'], 201);
     }
 
+    public function logout(LogOutRequest $request)
+    {
+        \auth()->user()->tokens()-> where('id', $request->token_id)->delete();
+        return \response()->json(['message' => 'you are successfully logout']);
+    }
 }

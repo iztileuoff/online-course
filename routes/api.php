@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::prefix('auth')->group(function (){
-        Route::post('/register', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'registration']);
-        Route::get('/login', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'authenticate']);
+        Route::post('/register', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'registration'])->middleware('guest');
+        Route::post('/login', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'authenticate'])->middleware('guest');
+        Route::post('/logout', [\App\Http\Controllers\API\AUTH\AuthApiController::class, 'logout'])->middleware('auth:sanctum');
 
     });
 
